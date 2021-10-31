@@ -2,13 +2,18 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 00:23:10 +0800
+ * @LastEditTime: 2021-11-01 02:10:48 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
+// 引入配置文件
+import dotenv from 'dotenv'
+dotenv.config()
 import Koa from 'koa'
-// import bodyParser from 'koa-bodyparser'
+// 引入路由
 import router from './route'
+// import bodyParser from 'koa-bodyparser'
+//
 
 const app = new Koa()
 
