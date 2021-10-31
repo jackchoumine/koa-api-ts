@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["bodyparser"]
+  "cSpell.words": ["bodyparser"],
+  "files.exclude": {
+    "**/*.js": false,
+    "**/node_modules": true
+  }
 }
