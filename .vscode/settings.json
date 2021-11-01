@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["appenders", "bodyparser", "middlewares"],
+  "cSpell.words": ["appenders", "bodyparser", "jwtoken", "middlewares"],
   "files.exclude": {
     "**/*.js": false,
     "**/node_modules": true
