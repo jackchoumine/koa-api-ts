@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:24:26 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 23:34:30 +0800
+ * @LastEditTime: 2021-11-02 02:17:30 +0800
  * @LastEditors : JackChou
  */
 
@@ -16,6 +16,9 @@ class UserController {
       data: users,
     }
     await next()
+  }
+  async login(ctx: Context, next: Next) {
+    return Promise.resolve({ name: 'JackChou', password: '123456', id: 100 })
   }
 }
 export default new UserController()

@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 23:35:14 +0800
+ * @LastEditTime: 2021-11-02 02:35:16 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -16,14 +16,14 @@ dotenv.config(envConfig)
 import Koa from 'koa'
 // 引入路由
 import router from './route'
-// import bodyParser from 'koa-bodyparser'
+import koaBody from 'koa-body'
 import { accessLog } from './middlewares'
 import connectDB from './db/index'
 const app = new Koa()
 
 connectDB()
 // app.use(accessLog)
-app.use(accessLog).use(router.routes())
+app.use(koaBody()).use(router.routes())
 
 export default function runApp(port: number): Server {
   return app.listen(port, () => {
