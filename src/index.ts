@@ -2,20 +2,26 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 03:15:57 +0800
+ * @LastEditTime: 2021-11-01 21:01:40 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
 // 引入配置文件
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv, { DotenvConfigOptions } from 'dotenv'
+const envConfig: DotenvConfigOptions = {
+  path: process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
+}
+dotenv.config(envConfig)
+
 import Koa from 'koa'
 // 引入路由
 import router from './route'
 // import bodyParser from 'koa-bodyparser'
 import { accessLog } from './middlewares'
-
+import connectDB from './db/index'
 const app = new Koa()
+
+connectDB()
 
 app.use(accessLog).use(router.routes())
 
