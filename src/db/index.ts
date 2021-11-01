@@ -2,10 +2,11 @@
  * @Description :
  * @Date        : 2021-11-01 19:09:13 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 21:44:58 +0800
+ * @LastEditTime: 2021-11-01 23:42:42 +0800
  * @LastEditors : JackChou
  */
-import path from 'path'
+import logger from '../logger'
+// import path from 'path'
 import { Sequelize } from 'sequelize-typescript'
 import config from '../../config'
 import * as models from '../models'
@@ -24,6 +25,7 @@ const sequelize = new Sequelize(name!, user!, password!, {
   // dialectOptions: {
   //   charset: 'utf8mb4',
   // },
+  logging: msg => logger.info('access', msg),
   define: {
     // NOTE Unknown column 'createdAt' in 'field list'
     timestamps: false,
