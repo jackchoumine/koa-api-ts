@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 19:09:13 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 21:03:05 +0800
+ * @LastEditTime: 2021-11-01 21:44:58 +0800
  * @LastEditors : JackChou
  */
 import path from 'path'
@@ -16,6 +16,25 @@ const sequelize = new Sequelize(name!, user!, password!, {
   host: host,
   port: +port!, // 转换为 number 类型
   dialect: 'mysql',
+  // pool: {
+  //   max: 5,
+  //   idle: 30000,
+  //   acquire: 60000,
+  // },
+  // dialectOptions: {
+  //   charset: 'utf8mb4',
+  // },
+  define: {
+    // NOTE Unknown column 'createdAt' in 'field list'
+    timestamps: false,
+    // NOTE Class constructor Model cannot be invoked without 'new'
+    // freezeTableName: true,
+    // underscored: true,
+    // paranoid: true,
+    // createdAt: 'created_at',
+    // updatedAt: 'updated_at',
+    // deletedAt: 'deleted_at',
+  },
   // NOTE 编译后变成 js
   models: Object.values(models),
 })

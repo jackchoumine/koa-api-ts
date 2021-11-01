@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 21:01:40 +0800
+ * @LastEditTime: 2021-11-01 23:35:14 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -22,7 +22,7 @@ import connectDB from './db/index'
 const app = new Koa()
 
 connectDB()
-
+// app.use(accessLog)
 app.use(accessLog).use(router.routes())
 
 export default function runApp(port: number): Server {
