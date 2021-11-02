@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-02 22:25:26 +0800
+ * @LastEditTime: 2021-11-02 22:48:31 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -56,9 +56,26 @@ function three(ctx: Context, next: Next) {
 }
 
 app.use(async (ctx, next) => {
-  const data = await util.promisify(fs.readFile)(path.join(__dirname, './public/main.js'), 'utf-8')
-  ctx.body = data
+  try {
+    console.log('--->处理异常')
+    await next() 
+    // FIXME 为何不使用 await next()，无法捕获呢？
+    console.log('<---处理异常')
+  } catch (error: any) {
+    console.log(error.message)
+    ctx.status = 500
+    ctx.body = error.message || '服务器错误'
+  }
+})
+
+app.use((ctx, next) => {
+  // const data = await util.promisify(fs.readFile)(path.join(__dirname, './public/main.js'), 'utf-8')
+  // ctx.body = data
+  JSON.parse('hello')
+  ctx.body = 'hello world'
+  console.log('--->hello world')
   next()
+  console.log('<---hello world')
 })
 
 app.use(compose([two, one, three]))
