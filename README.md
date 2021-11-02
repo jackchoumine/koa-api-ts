@@ -12,6 +12,47 @@
 
 > 中间件如何写？
 
+多个中间件形成前进后出的栈结构。
+
+```ts
+function one(ctx: Context, next: Next) {
+  console.log('--> one')
+  next()
+  console.log('<-- one')
+}
+
+function two(ctx: Context, next: Next) {
+  console.log('--> two')
+  next()
+  console.log('<-- two')
+}
+
+function three(ctx: Context, next: Next) {
+  console.log('--> three')
+  next() // FIXME 中间件不调用 next,执行权不会向后传递，从而实现拦截
+  // 比如，登录验证
+  // NOTE 如何使用中间件记录请求返回时间？
+  console.log('<-- three')
+}
+
+app.use(one)
+app.use(two)
+app.use(three)
+```
+
+输出
+
+```bash
+--> one
+--> two
+--> three
+<-- three
+<-- two
+<-- one
+```
+
+### 异步中间件
+
 ## 前端后端交互
 
 1. post
