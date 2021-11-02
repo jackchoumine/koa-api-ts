@@ -53,6 +53,14 @@ app.use(three)
 
 ### 异步中间件
 
+```ts
+app.use(async (ctx, next) => {
+  const data = await util.promisify(fs.readFile)(path.join(__dirname, './public/main.js'), 'utf-8')
+  ctx.body = data
+  next()
+})
+```
+
 ## 前端后端交互
 
 1. post
