@@ -2,26 +2,33 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-02 02:35:16 +0800
+ * @LastEditTime: 2021-11-02 21:52:07 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
-// 引入配置文件
+import path from 'path'
+import Koa from 'koa'
+import koaBody from 'koa-body'
+import koaStatic from 'koa-static'
+import mount from 'koa-mount'
 import dotenv, { DotenvConfigOptions } from 'dotenv'
+// 引入路由
+import router from './route'
+import { accessLog } from './middlewares'
+import connectDB from './db/index'
+
+// 引入配置文件
 const envConfig: DotenvConfigOptions = {
   path: process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
 }
 dotenv.config(envConfig)
 
-import Koa from 'koa'
-// 引入路由
-import router from './route'
-import koaBody from 'koa-body'
-import { accessLog } from './middlewares'
-import connectDB from './db/index'
 const app = new Koa()
 
-connectDB()
+// connectDB()
+// NOTE mount 用于设置虚拟路径
+// FIXME 设置静态资料虚拟路径的目的是为何？
+app.use(mount('/public', koaStatic(path.join(__dirname, './public'))))
 // app.use(accessLog)
 app.use(koaBody()).use(router.routes())
 
