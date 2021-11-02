@@ -63,6 +63,12 @@ app.use(async (ctx, next) => {
 
 ### 组合中间件
 
+```ts
+app.use(compose([two, one, three]))
+// app.use(one)
+// app.use(two)
+// app.use(three)
+```
 
 ## 前端后端交互
 
