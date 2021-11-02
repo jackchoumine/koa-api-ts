@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-02 22:19:34 +0800
+ * @LastEditTime: 2021-11-02 22:25:26 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -11,6 +11,7 @@ import util from 'util'
 import fs from 'fs'
 import Koa, { Context, Next } from 'koa'
 import koaBody from 'koa-body'
+import compose from 'koa-compose'
 import koaStatic from 'koa-static'
 import mount from 'koa-mount'
 import dotenv, { DotenvConfigOptions } from 'dotenv'
@@ -60,9 +61,10 @@ app.use(async (ctx, next) => {
   next()
 })
 
-app.use(one)
-app.use(two)
-app.use(three)
+app.use(compose([two, one, three]))
+// app.use(one)
+// app.use(two)
+// app.use(three)
 // NOTE mount 用于设置虚拟路径
 // FIXME 设置静态资料虚拟路径的目的是为何？
 app.use(mount('/public', koaStatic(path.join(__dirname, './public'))))
