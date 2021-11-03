@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-04 00:36:23 +0800
+ * @LastEditTime: 2021-11-04 01:11:24 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -15,7 +15,7 @@ import compose from 'koa-compose'
 import koaStatic from 'koa-static'
 import mount from 'koa-mount'
 import dotenv, { DotenvConfigOptions } from 'dotenv'
-import './controllers'
+// import './controllers'
 // 引入路由
 import router from './route'
 import { accessLog } from './middlewares'
@@ -57,18 +57,18 @@ function three(ctx: Context, next: Next) {
   console.log('<-- three')
 }
 
-app.use(async (ctx, next) => {
-  try {
-    console.log('--->处理异常')
-    await next()
-    // FIXME 为何不使用 await next()，无法捕获呢？
-    console.log('<---处理异常')
-  } catch (error: any) {
-    console.log(error.message)
-    ctx.status = 500
-    ctx.body = error.message || '服务器错误'
-  }
-})
+// app.use(async (ctx, next) => {
+//   try {
+//     console.log('--->处理异常')
+//     await next()
+//     // FIXME 为何不使用 await next()，无法捕获呢？
+//     console.log('<---处理异常')
+//   } catch (error: any) {
+//     console.log(error.message)
+//     ctx.status = 500
+//     ctx.body = error.message || '服务器错误'
+//   }
+// })
 
 // app.use((ctx, next) => {
 //   // const data = await util.promisify(fs.readFile)(path.join(__dirname, './public/main.js'), 'utf-8')
@@ -83,6 +83,8 @@ app.use(async (ctx, next) => {
 // NOTE 同步中间件和异步中间件混用，造成 404
 // 最佳实践：同步中间件在前，异步中间件在后，这样可以保证同步中间件的执行顺序
 
+// app.use(accessLog)
+app.use(koaBody()).use(router.routes())
 // app.use(compose([two, one, three]))
 // app.use(one)
 // app.use(two)
@@ -90,8 +92,6 @@ app.use(async (ctx, next) => {
 // NOTE mount 用于设置虚拟路径
 // FIXME 设置静态资料虚拟路径的目的是为何？
 app.use(mount('/public', koaStatic(path.join(__dirname, './public'))))
-// app.use(accessLog)
-app.use(koaBody()).use(router.routes())
 
 export default function runApp(port: number): Server {
   return app.listen(port, () => {
