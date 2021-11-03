@@ -2,9 +2,10 @@
  * @Description :
  * @Date        : 2021-11-01 19:09:13 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-01 23:42:42 +0800
+ * @LastEditTime: 2021-11-03 23:36:32 +0800
  * @LastEditors : JackChou
  */
+import mongoose from 'mongoose'
 import logger from '../logger'
 // import path from 'path'
 import { Sequelize } from 'sequelize-typescript'
@@ -48,4 +49,25 @@ export default async function connectDB() {
   } catch (error) {
     console.error('Unable to connect to the database:', error)
   }
+}
+export function connectMongoDb() {
+  const password = `KKko8848!!`
+  const uri = `mongodb+srv://jack:${password}@cluster0.zljho.mongodb.net?retryWrites=true&w=majority`
+  mongoose
+    .connect(uri)
+    .then(response => {
+      console.log('response')
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  // const client = new MongoClient(uri, {})
+  // client.connect(err => {
+  //   console.log(err)
+  //   const collection = client.db('test').collection('devices')
+  //   console.log(222)
+  //   // perform actions on the collection object
+  //   client.close()
+  // })
+  // console.log(2)
 }

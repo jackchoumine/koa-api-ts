@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-02 22:48:31 +0800
+ * @LastEditTime: 2021-11-03 23:28:37 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -18,7 +18,7 @@ import dotenv, { DotenvConfigOptions } from 'dotenv'
 // 引入路由
 import router from './route'
 import { accessLog } from './middlewares'
-import connectDB from './db/index'
+import connectDB, { connectMongoDb } from './db/index'
 
 // 引入配置文件
 const envConfig: DotenvConfigOptions = {
@@ -28,6 +28,7 @@ dotenv.config(envConfig)
 
 const app = new Koa()
 
+connectMongoDb()
 // connectDB()
 // router.get('/foo', ctx => {
 //   ctx.body = 'foo '
@@ -58,7 +59,7 @@ function three(ctx: Context, next: Next) {
 app.use(async (ctx, next) => {
   try {
     console.log('--->处理异常')
-    await next() 
+    await next()
     // FIXME 为何不使用 await next()，无法捕获呢？
     console.log('<---处理异常')
   } catch (error: any) {
