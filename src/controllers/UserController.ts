@@ -2,12 +2,13 @@
  * @Description :
  * @Date        : 2021-11-01 00:24:26 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-04 01:21:00 +0800
+ * @LastEditTime: 2021-11-04 01:35:06 +0800
  * @LastEditors : JackChou
  */
 
 import { Next, Context } from 'koa'
 import { userService } from '../services'
+import { encrypt } from '../utils'
 class UserController {
   async getUserInfo(ctx: Context, next: Next) {
     const users = await userService.getUsers()
@@ -29,7 +30,7 @@ class UserController {
         message: '用户已存在',
       }
     } else {
-      const user = await userService.addUser({ username, password })
+      const user = await userService.addUser({ username, password: encrypt(password) })
       ctx.body = {
         success: true,
         data: user,
