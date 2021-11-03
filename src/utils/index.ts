@@ -2,7 +2,7 @@
  * @Description : 业务无关的工具函数
  * @Date        : 2021-11-02 01:37:33 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-02 03:25:14 +0800
+ * @LastEditTime: 2021-11-04 00:19:59 +0800
  * @LastEditors : JackChou
  */
 import jwt, { decode } from 'jsonwebtoken'
@@ -22,4 +22,8 @@ export const JWT = {
       return { data: null, message: error.message }
     }
   },
+}
+
+export function isFunction(value: unknown) {
+  return typeof value === 'function'
 }

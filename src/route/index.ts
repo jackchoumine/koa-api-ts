@@ -2,7 +2,7 @@
  * @Description : 路由配置
  * @Date        : 2021-11-01 00:22:13 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-02 21:57:06 +0800
+ * @LastEditTime: 2021-11-04 00:50:23 +0800
  * @LastEditors : JackChou
  */
 import Router from 'koa-router'
@@ -24,5 +24,12 @@ router.post('/login', async (ctx, next) => {
 // FIXME 会拦截前面的请求吗？
 // router.use(auth)
 // FIXME 验证通过后，如何获取到用户信息？，// 但是不能获取到用户的权限信息
-router.get('/users', user.getUserInfo)
+router.get(
+  '/users',
+  async (ctx, next) => {
+    console.log(222)
+    await next()
+  },
+  user.getUserInfo
+)
 export default router

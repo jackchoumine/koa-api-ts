@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-04 00:13:54 +0800
+ * @LastEditTime: 2021-11-04 00:36:23 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -15,6 +15,7 @@ import compose from 'koa-compose'
 import koaStatic from 'koa-static'
 import mount from 'koa-mount'
 import dotenv, { DotenvConfigOptions } from 'dotenv'
+import './controllers'
 // 引入路由
 import router from './route'
 import { accessLog } from './middlewares'
