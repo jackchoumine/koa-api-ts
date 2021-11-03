@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2021-11-01 00:13:07 +0800
  * @Author      : JackChou
- * @LastEditTime: 2021-11-03 23:28:37 +0800
+ * @LastEditTime: 2021-11-04 00:13:54 +0800
  * @LastEditors : JackChou
  */
 import { Server } from 'http'
@@ -28,8 +28,8 @@ dotenv.config(envConfig)
 
 const app = new Koa()
 
-connectMongoDb()
-// connectDB()
+// connectMongoDb()
+connectDB()
 // router.get('/foo', ctx => {
 //   ctx.body = 'foo '
 // })
@@ -69,17 +69,20 @@ app.use(async (ctx, next) => {
   }
 })
 
-app.use((ctx, next) => {
-  // const data = await util.promisify(fs.readFile)(path.join(__dirname, './public/main.js'), 'utf-8')
-  // ctx.body = data
-  JSON.parse('hello')
-  ctx.body = 'hello world'
-  console.log('--->hello world')
-  next()
-  console.log('<---hello world')
-})
+// app.use((ctx, next) => {
+//   // const data = await util.promisify(fs.readFile)(path.join(__dirname, './public/main.js'), 'utf-8')
+//   // ctx.body = data
+//   // JSON.parse('hello')
+//   ctx.body = 'hello world'
+//   console.log('--->hello world')
+//   next()
+//   console.log('<---hello world')
+// })
 
-app.use(compose([two, one, three]))
+// NOTE 同步中间件和异步中间件混用，造成 404
+// 最佳实践：同步中间件在前，异步中间件在后，这样可以保证同步中间件的执行顺序
+
+// app.use(compose([two, one, three]))
 // app.use(one)
 // app.use(two)
 // app.use(three)
