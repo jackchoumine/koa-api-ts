@@ -151,10 +151,14 @@ app.use((ctx, next) => {
 
 4.
 
-## koa 相关资料
+## 资料参考
+
+[TypeScript 从系统入门到项目实战 -- 慕课网](https://www.youtube.com/watch?v=tae8pRmB0UI&list=PL9nxfq1tlKKkG8HjoiTDk6YFeyQslC8s6)
 
 [koa 中文文档](https://koa.bootcss.com/)
 
 [awesome koa](https://github.com/ellerbrock/awesome-koa)
 
 [awesome koa](https://github.com/fineen/awesome-koa)
+
+[Koa.js basics in 7-step tutorial](https://ralabs.org/blog/koa-basics-in-7-step-tutorial/)
